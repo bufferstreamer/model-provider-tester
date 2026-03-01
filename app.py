@@ -12,6 +12,28 @@ from typing import Optional, Dict, Any, List
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# ⚠️ set_page_config 必须是第一个 Streamlit 命令
+st.set_page_config(
+    page_title="Model Provider Tester",
+    page_icon="🔍",
+    layout="wide",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
+# 隐藏 Deploy 按钮和右上角菜单
+st.markdown("""
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .stDeployButton {display:none;}
+    </style>
+    """, unsafe_allow_html=True)
+
 
 class ProviderTester:
     """Provider 连通性测试器"""
@@ -625,27 +647,7 @@ def batch_test():
 
 
 def main():
-    st.set_page_config(
-        page_title="Model Provider Tester",
-        page_icon="🔍",
-        layout="wide",
-        menu_items={
-            'Get Help': None,
-            'Report a bug': None,
-            'About': None
-        }
-    )
-    
-    # 隐藏 Deploy 按钮和右上角菜单
-    st.markdown("""
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        .stDeployButton {display:none;}
-        </style>
-        """, unsafe_allow_html=True)
-    
+    """主内容区域"""
     st.title("🔍 Model Provider 连通性测试")
     st.markdown("测试自定义模型 Provider 的连通性，支持 Anthropic、OpenAI、Google 格式")
     
